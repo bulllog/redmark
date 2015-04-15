@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="shortcut icon" href="/assets/images/favicon.png">
+  <title>Redmark</title>
+
+  <link rel="stylesheet" href="/assets/stylesheets/styles.css">
+  
+  <!------------------------ Angular Material Css -----------------------------------------------------------
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css"> -->
+  <link rel="stylesheet" href="/assets/stylesheets/angular-material.min.css">
+  
+  <!----------------------- Angular Material Scripts ----------------------------->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-animate.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-aria.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-messages.min.js"></script>
+  <script src="//cdn.jsdelivr.net/angular-material-icons/0.4.0/angular-material-icons.min.js"></script> 
+  <script src="http://rawgit.com/angular/bower-material/master/angular-material.js"></script>
+  
+  
+  <!--<script src="angular_material_v1/angular.js"></script>
+  <script src="angular_material_v1/angular-animate.min.js"></script>
+  <script src="angular_material_v1/angular-route.min.js"></script>
+  <script src="angular_material_v1/angular-aria.min.js"></script>
+  <script src="angular_material_v1/angular-route.messages-min.js"></script>
+  <script src="angular_material_v1/angular-material.js"></script> -->
+  
+  
+  <!-- Appliaction Script -->
+  <script src="/assets/javascripts/directives/create_ticket_dialog/create-ticket-dialog-ctrl.js"></script>
+  <script src="/assets/javascripts/directives/tile/tile.js"></script>
+  <script src="/assets/javascripts/controller/category_ticket_ctrl.js"></script>
+  <script src="/assets/javascripts/controller/home_ctrl.js"></script>
+  <script src="/assets/javascripts/controller/ticket_ctrl.js"></script>
+  <script src="/assets/javascripts/controller/main.js"></script> 
+  <script src="/assets/javascripts/redmark.js"></script> 
+  
+</head>
+
+<body layout="row" ng-app="main" style ng-controller="redmarkCtrl">
+  <!-- Side navigation-->
+  <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+              md-component-id="left">
+    <md-toolbar>
+      <h1 class="md-toolbar-tools">
+        <a ng-href="/" layout="row" flex class="docs-logo">
+          <div class="docs-logotype">RedMark</div>
+        </a>
+      </h1>
+    </md-toolbar>
+    
+    <md-content flex role="navigation">
+      <div class='navigation' flex layout="column">
+        <div ng-repeat="nav in navigation" class="nav-item">
+          <md-button class="md-primary md-hue-1" ng-href="/{{nav.icon}}">
+            <md-icon md-svg-icon="/assets/images/{{nav.icon}}.svg" style="color: #6B6B74;"></md-icon>
+            <span>{{nav.name}}</span>
+          </md-button>
+        </div>
+      </div>
+    </md-content>
+  </md-sidenav>
+  <!-- Side navigation close -->
+  
+
+  <!-- Toolbar header -->
+  <div layout="column"  flex ng-controller="toggleNavCtrl">
+    <md-toolbar class="md-theme-light" style="background:{{toolbarInfo.background}}" >
+      <div class="md-toolbar-tools">
+        <md-button class="menu-button md-icon-button" aria-label="Toggle Menu" ng-click="openNav()">
+          <md-icon md-svg-src="/assets/images/menu.svg"></md-icon>
+        </md-button>
+        <h2>{{toolbarInfo.title}}</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <!-- Toolbar header close.-->
+  
+    <!-- Fab button to create tickets. -->
+    <div class="create-ticket-fab">
+      <md-button class="md-warn md-fab" ng-click="openDialogCreateTicket($event)" aria-label="create-new-ticket">
+        <md-tooltip>
+          Create New Ticket
+        </md-tooltip>
+        <md-icon md-svg-src="/assets/images/ic_add_24px.svg"></md-icon>
+      </md-button>
+    </div>
+    
+    <!-- Ng-View -->
+    <div ng-view></div> 
+  </div>
+</body>
+</html>
+
+

@@ -1,0 +1,172 @@
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+.site-sidenav,
+.site-sidenav.md-locked-open-add-active,
+.site-sidenav.md-locked-open {
+  width: 254px;
+  min-width: 254px;
+  max-width: 254px;
+}
+
+md-icon.md-default-theme {
+  color: rgba(255,255,255,0.87);
+}
+
+md-content ul {
+  list-style: none;
+  padding: 15px;
+}
+
+md-content ul li {
+  list-style: none;
+  list-style-position: inside;
+  margin-top: 3px;
+}
+
+.navigation .md-button {
+  border-radius: 0;
+  color: inherit;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 40px;
+  margin: 0;
+  max-height: 40px;
+  overflow: hidden;
+  padding: 0px 16px;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  width: 100%;
+  text-transform: none;
+}
+
+.nav-item {
+  color: #333;
+  font-size: 14px;
+  padding-left: 16px;
+  text-align: left;
+  transition: color 0.35s cubic-bezier(0.35,0,0.25,1);
+  padding: 5px 0px;
+}
+
+.nav-item:hover {
+  background: #E8EAF6;  
+}
+
+.nav-item md-icon {
+  margin-left: 1em;
+  margin-right: 2em;
+}
+
+.nav-item span {
+  color: #333 !important;
+  font-size: 18px;
+  font-weight: 400;
+  padding-left: 16px;
+  text-align: left;
+  transition: color 0.35s cubic-bezier(0.35,0,0.25,1);  
+}
+
+.menu-button {
+  padding: 0 15px !important;
+}
+.tile-container {
+  height: 78vh;
+  overflow-y: inherit;
+  padding: 24px;
+  padding-top: 10px;
+  box-shadow: 0px 3px 5px -1px rgb(187, 176, 176);
+}
+
+.ticket-number {
+  color: rgb(244,67,54);
+  cursor: pointer;
+  display: block;
+  font-size: .9em;
+  font-weight: 400;
+  line-height: 1em;
+  margin: 0 16px 0 0;
+  padding: 16px 0 16px 16px;
+  position: relative;
+}
+
+.grid-container md-toolbar .md-toolbar-tools {
+  min-height: 50px;
+}
+
+/** Styles for ticket tile. ****/
+
+.ticket-tile md-card md-card-content {
+  padding: 12px;
+}
+
+md-card-content a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.create-ticket-fab {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+}
+
+.create-ticket-fab .md-button {
+  background: rgb(244,67,54) !important;
+}
+
+
+/** Create ticket dialog */
+.create-ticket-dialog md-dialog{
+  min-width: 600px;
+}
+
+.create-ticket-dialog .md-subheader {
+  background-color: #dcedc8;
+  margin: 0;
+  font-size: large;
+}
+
+.create-ticket-dialog md-dialog md-content.sticky-container {
+  padding: 0;
+}
+
+.create-ticket-dialog h2 .md-subheader-content {
+  padding-left: 10px;
+}
+
+.create-ticket-dialog md-input-container {
+  padding: 10px;
+}
+
+.create-ticket-dialog md-dialog .md-actions {
+  border: 0.5px solid rgba(0,0,0,0.12);
+}
+
+.title {
+  padding: 8px;
+  color: green;
+}
+
+.create-title-dialog .dialog-content {
+  padding: 5px;
+}
+
+.category-ticket-container > [flex] {
+  min-width: 400px;
+}
+
+.ticket-view {
+  padding: 10px;
+}
+
+.ticket-view md-content {
+  padding: 15px;
+}
+
+.ticket-view .md-actions {
+  padding: 15px 25px;
+}

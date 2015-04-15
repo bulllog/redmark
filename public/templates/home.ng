@@ -1,0 +1,16 @@
+<!-- Home Page-->
+<div layout="row" layout-padding layout-sm="column" ng-controller="homeCtrl">
+  <div class="grid-container" layout-padding ng-repeat="ticketObject in ticketsObject" flex>
+    <md-toolbar style="background:{{ticketObject.background}}">
+      <div class="md-toolbar-tools">
+        <h2 class="md-flex">{{ticketObject.name}}</h2>
+      </div>
+    </md-toolbar>
+    <md-content layout-padding class="tile-container">
+      <div ng-repeat="ticket in ticketObject.tickets">
+        <ticket-tile ticket="ticket"></ticket-tile>
+      </div>
+    </md-content>
+  </div>
+</div>
+
