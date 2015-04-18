@@ -8,5 +8,26 @@ GET     /                           controllers.Application.index()
 # Ticket page
 GET     /ticket                     controllers.Application.index()
 
+
+
+
+
+
+# Ticket REST Apis
+GET     /get-tickets/               apis.TicketsApi.getTickets(status="all")
+
+GET     /get-tickets/:status        apis.TicketsApi.getTickets(status: String)
+
+GET     /get-ticket/:ticketId       apis.TicketsApi.getTicket(ticketId: String)
+
+POST     /ticket/new                apis.TicketsApi.createTicket()
+
+PUT     /update-ticket/:ticketId    apis.TicketsApi.updateTicket(ticketId: String)
+
+
+
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
