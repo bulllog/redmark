@@ -135,7 +135,7 @@ public class MongoCollectionTicketsInfo extends MongoDBConnection {
     ObjectId ticketId = new ObjectId();
     MongoCollectionCustomerInfo customerObject = 
         new MongoCollectionCustomerInfo();
-    String customerEmailId = customer_info.findPath("emailId").textValue();
+    String customerEmailId = customer_info.findPath("email_id").textValue();
     if (customerEmailId == null) {
       return "Customer Email ID required.";
     }
@@ -233,7 +233,7 @@ class MongoCollectionCustomerInfo extends MongoDBConnection {
       ObjectId customerId = new ObjectId();
       BasicDBObject newCustomer = new BasicDBObject("name", name)
             .append("customer_id", customerId.toString())
-            .append("email", emailId)
+            .append("email_id", emailId)
             .append("address", address)
             .append("contact", contact);
       this.customerInfoObject.insert(newCustomer);

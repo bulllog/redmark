@@ -2,10 +2,11 @@
  * Main Controller.
  */
 var redmarkCtrl = function($scope, $mdDialog) {
-  $scope.toolbarInfo = {
+  $scope.toolbarDefaultInfo = {
     'title': 'Ticket View',
     'background': 'rgb(63,81,181)'
   };
+  
   $scope.navigation = [{
     'name': 'New',
     'icon': 'new',
@@ -20,6 +21,10 @@ var redmarkCtrl = function($scope, $mdDialog) {
     'background': '#42bd41'
   }];
   
+  
+  $scope.setDeafaultInfo = function() {
+    $scope.toolbarInfo = angular.copy($scope.toolbarDefaultInfo);
+  }
   // TODO: Try to remove it from the scope if possible.
   $scope.updateToolbarInfo = function(title) {
     $scope.toolbarInfo.title = title;
@@ -33,7 +38,7 @@ var redmarkCtrl = function($scope, $mdDialog) {
   $scope.openDialogCreateTicket = function($event, ticket) {
     $mdDialog.show({
         controller: createTicketDialogCtrl,
-        templateUrl: '/assets/javascripts/directives/create_ticket_dialog/create-ticket-dialog.ng',
+        templateUrl: '/assets/javascript/directives/create_ticket_dialog/create-ticket-dialog.ng',
         targetEvent: $event,
         locals: {
           ticket: ticket
@@ -43,6 +48,8 @@ var redmarkCtrl = function($scope, $mdDialog) {
         $scope.alert = 'You said the information was "' + answer + '".';
       });
   };
+
+  $scope.setDeafaultInfo();
 };
 
 /** Name used by AngularJS dependency injector. */
@@ -75,6 +82,7 @@ var redmarkApp = angular.module('main', [
   'ngMaterial',
   'ngMdIcons',
   'ngRoute',
+  'ngResource',
   ticketTile.NG_NAME]);
 
 
@@ -91,6 +99,13 @@ angular.forEach(ControllerList,
   function(ctrl) {
     redmarkApp.controller(ctrl.NG_NAME, ctrl);
   });
+
+
+/**
+ * Adding Services.
+ */
+redmarkApp.service(ticketService.NG_NAME, ticketService);
+
 
 /**
  * Configures the angular module.

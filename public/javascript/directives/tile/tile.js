@@ -19,7 +19,7 @@ var ticketTile = function() {
  *
  */
 ticketTile.TEMPLATE_URL_ =
-    '/assets/javascripts/directives/tile/tile-template.ng';
+    '/assets/javascript/directives/tile/tile-template.ng';
 
 /** Name used by AngularJS dependency injector. */
 ticketTile.NG_NAME = 'ticketTile';

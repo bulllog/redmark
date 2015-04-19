@@ -3,26 +3,23 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                              controllers.Application.index()
 
 # Ticket page
-GET     /ticket                     controllers.Application.index()
+GET     /ticket                        controllers.Application.index()
 
-
-
-
-
+GET     /tickets                       controllers.Application.index()
 
 # Ticket REST Apis
-GET     /get-tickets/               apis.TicketsApi.getTickets(status="all")
+GET     /api/getTickets                apis.TicketsApi.getTickets(status="all")
 
-GET     /get-tickets/:status        apis.TicketsApi.getTickets(status: String)
+GET     /api/getTickets/:status        apis.TicketsApi.getTickets(status: String)
 
-GET     /get-ticket/:ticketId       apis.TicketsApi.getTicket(ticketId: String)
+GET     /api/ticket/:ticketId         apis.TicketsApi.getTicket(ticketId: String)
 
-POST     /ticket/new                apis.TicketsApi.createTicket()
+POST     /api/ticket                  apis.TicketsApi.createTicket()
 
-PUT     /update-ticket/:ticketId    apis.TicketsApi.updateTicket(ticketId: String)
+PUT     /api/ticket/:ticketId         apis.TicketsApi.updateTicket(ticketId: String)
 
 
 

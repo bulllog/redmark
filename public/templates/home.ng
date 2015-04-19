@@ -1,5 +1,5 @@
 <!-- Home Page-->
-<div layout="row" layout-padding layout-sm="column" ng-controller="homeCtrl">
+<div layout="row" layout-padding layout-sm="column">
   <div class="grid-container" layout-padding ng-repeat="ticketObject in ticketsObject" flex>
     <md-toolbar style="background:{{ticketObject.background}}">
       <div class="md-toolbar-tools">
@@ -7,6 +7,9 @@
       </div>
     </md-toolbar>
     <md-content layout-padding class="tile-container">
+      <div layout="row" layout-align="center end" ng-show="isDataLoaded">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
       <div ng-repeat="ticket in ticketObject.tickets">
         <ticket-tile ticket="ticket"></ticket-tile>
       </div>

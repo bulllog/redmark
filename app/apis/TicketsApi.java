@@ -64,7 +64,7 @@ public class TicketsApi extends Controller {
 
       MongoCollectionTicketsInfo ticketsInfoObject = new MongoCollectionTicketsInfo();
       responseMessage = ticketsInfoObject.createTicket(status, summary, created_by, assigned_to, customer_info, comments);
-      responseStatus = responseMessage.equals("success") ? "200" : "503";
+      responseStatus = responseMessage.equals("success") ? "200" : "500";
       return ok(response
           .put("status", responseStatus)
           .put("message", responseMessage));
@@ -90,7 +90,7 @@ public class TicketsApi extends Controller {
       
       responseMessage = ticketsInfoObject.updateTicket(ticketId, status,
           assigned_to, comments);
-      responseStatus = responseMessage.equals("success") ? "200" : "503";
+      responseStatus = responseMessage.equals("success") ? "200" : "500";
       return ok(response
           .put("status", responseStatus)
           .put("message", responseMessage));
