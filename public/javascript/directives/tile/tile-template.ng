@@ -2,15 +2,23 @@
   <md-card>
     <md-card-content>
       <div layout="row">
-        <a href="/ticket">
-          <div class="ticket-number" href='/ticket' ng-click="$event.stopPropagation()">
+        <a href="/ticket/{{ticket.ticket_no}}">
+          <div class="ticket-number" ng-click="$event.stopPropagation()">
             #{{ticket.ticket_no}}
           </div>
         </a>
         <div flex></div>
         <div>
-          <md-button class="md-raised" ng-if="ticket.status=='new'" ng-click='$event.stopPropagation()'>Open</md-button>
-          <md-button class="md-raised" ng-if="ticket.status=='new' || ticket.status=='open'" ng-click='$event.stopPropagation()'>Close</md-button>
+          <md-button class="md-raised"
+                     ng-if="ticket.status=='new'"
+                     ng-click='handleClick($event, "open", ticket)'>
+            Open
+          </md-button>
+          <md-button class="md-raised"
+                     ng-if="ticket.status=='new' || ticket.status=='open'"
+                     ng-click='handleClick($event, "close", ticket)'>
+            Close
+          </md-button>
         </div>
         <!--<md-select placeholder="{{ticket.status}}"
                    ng-model="ticket.status"

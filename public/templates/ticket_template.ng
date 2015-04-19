@@ -1,7 +1,20 @@
-<div class="ticket-view" ng-controller="ticketCtrl">
+<div class="ticket-view">
   <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="space-around">
-    <md-content class="sticky-container">
-      <md-subheader class="md-warn md-sticky-no-effect">Ticket#{{ticket.ticket_no}}</md-subheader>
+    <div layout="row" layout-align="center end" ng-show="isDataLoaded">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-content class="sticky-container" ng-if="ticket != null">
+      <md-subheader class="md-warn md-sticky-no-effect">
+        <div layout="row" layout-align="space-between center">
+          <div>
+            Ticket#{{ticket.ticket_no}}
+          </div>
+          <div layout="row" class="created-date">
+           <md-icon md-svg-icon="/assets/images/date.svg"></md-icon>
+           <div>{{ticket.created_date}}</div>
+          </div>
+        </div>
+      </md-subheader>
       <div class="dialog-content">
         <!-- Department Info -->
         <md-input-container>
@@ -50,7 +63,7 @@
       </md-input-container>
     </md-content>
     
-    <div class="md-actions" layout="row">
+    <div class="md-actions" layout="row" ng-if="ticket != null" >
       <md-button ng-click="submit('useful')" class="md-primary">
         Submit
       </md-button>

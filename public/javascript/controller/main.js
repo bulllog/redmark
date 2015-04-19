@@ -8,15 +8,15 @@ var redmarkCtrl = function($scope, $mdDialog) {
   };
   
   $scope.navigation = [{
-    'name': 'New',
+    'name': 'New Tickets',
     'icon': 'new',
     'background': 'red'
   },{
-    'name': 'Open',
+    'name': 'Open Tickets',
     'icon': 'open',
     'background': '#0091ea'
   },{
-    'name': 'Close',
+    'name': 'Close Tickets',
     'icon': 'close',
     'background': '#42bd41'
   }];
@@ -27,10 +27,10 @@ var redmarkCtrl = function($scope, $mdDialog) {
   }
   // TODO: Try to remove it from the scope if possible.
   $scope.updateToolbarInfo = function(title) {
-    $scope.toolbarInfo.title = title;
     angular.forEach( $scope.navigation,
         function(nav) {
-          if (nav.name == title) {
+          if (nav.icon == title) {
+            $scope.toolbarInfo.title = nav.name;
             $scope.toolbarInfo.background = nav.background;
           }
         });
@@ -83,6 +83,7 @@ var redmarkApp = angular.module('main', [
   'ngMdIcons',
   'ngRoute',
   'ngResource',
+  ticketService.NG_NAME,
   ticketTile.NG_NAME]);
 
 
@@ -130,9 +131,9 @@ redmarkApp.ngConfigure = function($locationProvider, $routeProvider) {
   }).when('/close', {
     'controller': categoryTicketCtrl,
     'templateUrl': 'assets/templates/category_ticket_template.ng'
-  }).when('/ticket', {
+  }).when('/ticket/:id', {
     'controller': ticketCtrl,
-    'templateUrl': 'assets/templates/ticket_template.ng'
+    'templateUrl': '/assets/templates/ticket_template.ng'
   }); 
 };
 

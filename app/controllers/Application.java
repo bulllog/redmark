@@ -8,9 +8,7 @@ import views.html.*;
 
 public class Application extends Controller {
 
-  public static Result index() {
-    //MongoCollectionTicketsInfo ticketsInfoObject = new MongoCollectionTicketsInfo();
-    //ticketsInfoObject.getTickets();
+  public static Result index(String optionArg) {
     return ok(index.render());
   }
 }

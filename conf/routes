@@ -3,23 +3,31 @@
 # ~~~~
 
 # Home page
-GET     /                              controllers.Application.index()
+GET     /                               controllers.Application.index(optArgs=null)
 
 # Ticket page
-GET     /ticket                        controllers.Application.index()
+GET     /ticket/*optArgs                    controllers.Application.index(optArgs : String)
 
-GET     /tickets                       controllers.Application.index()
+#GET     /ticket/*id                     controllers.Application.index(id: String)
+
+#GET     /tickets                       controllers.Application.index()
+
+GET     /new                           controllers.Application.index(optArgs=null)
+
+GET     /open                          controllers.Application.index(optArgs=null)
+
+GET     /close                         controllers.Application.index(optArgs=null)
 
 # Ticket REST Apis
 GET     /api/getTickets                apis.TicketsApi.getTickets(status="all")
 
 GET     /api/getTickets/:status        apis.TicketsApi.getTickets(status: String)
 
-GET     /api/ticket/:ticketId         apis.TicketsApi.getTicket(ticketId: String)
+GET     /api/ticket/:ticketId          apis.TicketsApi.getTicket(ticketId: String)
 
-POST     /api/ticket                  apis.TicketsApi.createTicket()
+POST     /api/ticket                   apis.TicketsApi.createTicket()
 
-PUT     /api/ticket/:ticketId         apis.TicketsApi.updateTicket(ticketId: String)
+PUT     /api/ticket/:ticketId          apis.TicketsApi.updateTicket(ticketId: String)
 
 
 
@@ -28,3 +36,5 @@ PUT     /api/ticket/:ticketId         apis.TicketsApi.updateTicket(ticketId: Str
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+

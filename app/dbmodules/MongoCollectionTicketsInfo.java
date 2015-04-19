@@ -100,18 +100,18 @@ public class MongoCollectionTicketsInfo extends MongoDBConnection {
    * Get all the tickets from the DB.
    */
   public List<DBObject> getTickets() {
-      DBCursor cursor = this.ticketsInfoObject.find();
-      return cursor.toArray();
+    DBCursor cursor = this.ticketsInfoObject.find();
+    return cursor.toArray();
   }
 
   /**
    * Get all the tickets with the given status from the DB.
    */
   public List<DBObject> getTickets(String status) {
-      BasicDBObject query = new BasicDBObject("status", status);
-      DBCursor cursor = this.ticketsInfoObject.find(query);
-      
-      return cursor.toArray();
+    BasicDBObject query = new BasicDBObject("status", status);
+    DBCursor cursor = this.ticketsInfoObject.find(query);
+    
+    return cursor.toArray();
   }
 
   /**
@@ -139,7 +139,14 @@ public class MongoCollectionTicketsInfo extends MongoDBConnection {
     if (customerEmailId == null) {
       return "Customer Email ID required.";
     }
-    String customer_id = customerObject.createCustomer(
+
+    if (status == null) {
+      status = (assigned_to == null) ? "new" : "open";
+    }
+
+    // TODO: Keep customer id int the table and modify getTickets to
+    // return the ticket with customer info field.
+    DBObject customerInfo = customerObject.createCustomer(
         customer_info.findPath("name").textValue(),
         customerEmailId,
         customer_info.findPath("address").textValue(),
@@ -150,9 +157,11 @@ public class MongoCollectionTicketsInfo extends MongoDBConnection {
           .append("created_by", created_by)
           .append("created_date", dateFormat.format(created_date))
           .append("assigned_to", assigned_to)
-          .append("customer_id", customer_id)
+          .append("customer_id", (String) customerInfo.get("customer_id"))
+          .append("customer_info", customerInfo)
           .append("comments", comments);
     this.ticketsInfoObject.insert(newTicket);
+    Logger.info("Ticket create succesfully");
     return "success";
   }
 
@@ -184,6 +193,7 @@ public class MongoCollectionTicketsInfo extends MongoDBConnection {
     
     this.ticketsInfoObject.update(ticketToUpdate,
         new BasicDBObject("$set", updatedInfo));
+    Logger.info("Ticket updated succesfully %s", ticketId);
     return "success";
   }
 }
@@ -226,10 +236,10 @@ class MongoCollectionCustomerInfo extends MongoDBConnection {
    * Creates the new customer instance in the db if not exists
    * and returns its id alse returns the existing id.
    */
-  public String createCustomer(String name, String emailId,
+  public DBObject createCustomer(String name, String emailId,
       String address, String contact) {
-    DBCursor customer = this.getCustomer(emailId);
-    if (customer.count() == 0) {
+    DBObject customer = this.getCustomer(emailId).one();
+    if (customer == null) {
       ObjectId customerId = new ObjectId();
       BasicDBObject newCustomer = new BasicDBObject("name", name)
             .append("customer_id", customerId.toString())
@@ -237,9 +247,8 @@ class MongoCollectionCustomerInfo extends MongoDBConnection {
             .append("address", address)
             .append("contact", contact);
       this.customerInfoObject.insert(newCustomer);
-      return customerId.toString();
+      customer = (DBObject) newCustomer;
     }
-    return (String) customer.one().get("customer_id");
+    return customer;
   }
-
 }

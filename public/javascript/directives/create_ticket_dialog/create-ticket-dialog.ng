@@ -3,10 +3,15 @@
     <md-content class="sticky-container">
       <md-subheader class="md-sticky-no-effect">
         <div layout="row" layout-align="space-between center">
-          <div>Create/Edit Ticket</div>
+          <div ng-show="isNew">
+            Create Ticket
+          </div>
+          <div ng-hide="isNew">
+            Edit Ticket
+          </div>
           <div ng-hide="isNew">
             <md-button class="md-icon-button launch"
-            href="/ticket"
+            href="/ticket/{{ticket.ticket_no}}"
             target="_blank"
             title="Open ticket in window"
             aria-label="open ticket">

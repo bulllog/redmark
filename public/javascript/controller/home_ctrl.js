@@ -26,6 +26,7 @@ var homeCtrl = function($scope, TicketsApi) {
   this.loadAllTickets();
 };
 
+/** Name used by AngularJS dependency injector. */
 homeCtrl.NG_NAME = 'homeCtrl';
 
 /**

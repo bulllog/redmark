@@ -1,4 +1,7 @@
-<div class="category-ticket-container" ng-controller="ticketCtrl" layout="row" layout-wrap layout-fill layout-padding>
+<div class="category-ticket-container" layout="row" layout-wrap layout-fill layout-padding>
+  <div layout="row" layout-align="center end" ng-show="isDataLoaded">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
   <div ng-repeat="ticket in tickets" flex>
     <ticket-tile ticket="ticket"></ticket-tile>
   </div>

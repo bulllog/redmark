@@ -160,10 +160,15 @@ md-card-content a {
 
 .category-ticket-container > [flex] {
   min-width: 400px;
+  max-width: 500px;
 }
 
 .ticket-view {
   padding: 10px;
+}
+
+.ticket-view md-whiteframe {
+  min-height: 400px;
 }
 
 .ticket-view md-content {
@@ -172,4 +177,9 @@ md-card-content a {
 
 .ticket-view .md-actions {
   padding: 15px 25px;
+}
+
+.created-date md-icon {
+  color: rgba(171, 121, 121, 0.87);
+  margin: -3px 6px;
 }
