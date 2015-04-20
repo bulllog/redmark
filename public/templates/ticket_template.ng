@@ -23,16 +23,16 @@
           <!-- Department Info -->
           <md-input-container>
             <label>Summary</label>
-            <input type="text" ng-model="ticket.summary" required></input>
+            <input type="text" ng-disabled="true"  ng-model="ticket.summary" required></input>
           </md-input-container>
           <div layout="row" layout-sm="column" >
             <md-input-container flex>
               <label>Created By</label>
-              <input type="text" ng-model="ticket.created_by" required></input>
+              <input type="text"  ng-disabled="true" ng-model="ticket.created_by" required></input>
             </md-input-container>
             <md-input-container flex>
               <label>Assign To</label>
-              <input type="text" ng-model="ticket.assigned_to"></input>
+              <input type="text" ng-model="ticket.assigned_to" ng-disabled="isClose()"></input>
             </md-input-container>
           </div>
 
@@ -41,21 +41,21 @@
           <div layout="row" layout-sm="column" >
             <md-input-container flex>
               <label>Name</label>
-              <input type="text" ng-model="ticket.customer_info.name" required></input>
+              <input type="text"  ng-disabled="true" ng-model="ticket.customer_info.name" required></input>
             </md-input-container>
             <md-input-container flex>
               <label>Contact</label>
-              <input type="text" ng-model="ticket.customer_info.contact"></input>
+              <input type="text"  ng-disabled="true" ng-model="ticket.customer_info.contact"></input>
             </md-input-container>
           </div>        
           <div layout="row" layout-sm="column" class="ticket-view-body">
             <md-input-container flex>
               <label>Address</label>
-              <input type="text" required ng-model="ticket.customer_info.address"></input>
+              <input type="text" required  ng-disabled="true" ng-model="ticket.customer_info.address"></input>
             </md-input-container>
             <md-input-container flex>
               <label>Email ID</label>
-              <input type="text" ng-model="ticket.customer_info.email_id"></input>
+              <input type="text" ng-model="ticket.customer_info.email_id" ng-disabled="true"></input>
             </md-input-container>
           </div>
         </div>
@@ -76,13 +76,14 @@
             <textarea ng-model="newComment.text"
                       ng-keypress="submitComment($event)"
                       md-maxlength="150"
-                      placeholder="Write and press enter to add comment"></textarea>
+                      placeholder="Write and press enter to add comment"
+                      ng-disabled="isClose()"></textarea>
           </md-input-container>
         </div>
       </div>
     
       <div class="md-actions" layout="row" ng-if="ticket != null" >
-        <md-button ng-click="submit()" class="md-primary">
+        <md-button ng-click="submit()" class="md-primary" ng-disabled="isClose()">
           Submit
         </md-button>
       </div>

@@ -2,7 +2,7 @@
  * Directive for tile to render the ticket info into tile form.
  *
  */
-var ticketTile = function(TicketsApi) {
+var ticketTile = function($window, $mdToast, TicketsApi) {
   return {
     'restrict': 'EAM',
     'replace': true,
@@ -10,7 +10,8 @@ var ticketTile = function(TicketsApi) {
       'ticket': '='
     },
     'templateUrl': ticketTile.TEMPLATE_URL_,
-    'link': angular.bind(null, ticketTile.link_, TicketsApi)
+    'link': angular.bind(null, ticketTile.link_,
+        $window, $mdToast, TicketsApi)
   };
 };
 
@@ -37,12 +38,26 @@ ticketTile.NG_MODULE = angular.module(ticketTile.NG_NAME,
 /**
  * Link function.
  */
-ticketTile.link_ = function(TicketsApi, $scope, element, attrs) {
+ticketTile.link_ = function($window, $mdToast, TicketsApi,
+    $scope, element, attrs) {
 
-  
+   
   $scope.openDialogTicket = function($event, ticket) {
     $scope.$parent.openDialogCreateTicket($event, ticket);    
   };
+
+  $scope.toastPosition = {
+    bottom: false,
+    top: true,
+    left: false,
+    right: true
+  };
+  $scope.getToastPosition = function() {
+    return Object.keys($scope.toastPosition)
+      .filter(function(pos) { return $scope.toastPosition[pos]; })
+      .join(' ');
+  };
+
   
   /**
   * Handler for button to change status of a ticket.
@@ -52,9 +67,15 @@ ticketTile.link_ = function(TicketsApi, $scope, element, attrs) {
     $event.stopPropagation();
     request["status"] = status;
     TicketsApi.updateTicket(ticket.ticket_no, request,
-        function() {
-        console.log("Ticket status updated."); 
-        },
+        angular.bind(null, function(window, scope, response) {
+          if(response.status != "200") {
+            $mdToast.show($mdToast.simple()
+              .content(response.message)
+              .position(scope.getToastPosition()).hideDelay(3000));
+          } else {
+            $window.location.reload();
+            }
+        }, $window, $scope),
         function() {
           console.log("Ticket status updation faild");
         })

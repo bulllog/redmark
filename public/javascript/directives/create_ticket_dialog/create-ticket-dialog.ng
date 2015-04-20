@@ -25,16 +25,18 @@
         <!-- Department Info -->
         <md-input-container>
           <label>Summary</label>
-          <input type="text" ng-model='ticket.summary' required></input>
+          <input type="text" ng-model='ticket.summary'
+                 required ng-disabled="!isNew"></input>
         </md-input-container>
         <div layout="row" layout-sm="column" >
           <md-input-container flex>
             <label>Created By</label>
-            <input type="text" ng-model='ticket.created_by' required></input>
+            <input type="text" ng-model='ticket.created_by'
+                   required ng-disabled="!isNew"></input>
           </md-input-container>
           <md-input-container flex>
             <label>Assign To</label>
-            <input type="text"" ng-model='ticket.assigned_to'></input>
+            <input type="text" ng-model='ticket.assigned_to' ng-disabled="ticket.status ==  'close'"></input>
           </md-input-container>
         </div>
 
@@ -43,22 +45,26 @@
         <div layout="row" layout-sm="column" >
           <md-input-container flex>
             <label>Name</label>
-            <input type="text" ng-model='ticket.customer_info.name' required></input>
+            <input type="text" ng-model='ticket.customer_info.name'
+                   required ng-disabled="!isNew"></input>
           </md-input-container>
           <md-input-container flex>
             <label>Contact</label>
-            <input type="text"ng-model='ticket.customer_info.contact'></input>
+            <input type="text"ng-model='ticket.customer_info.contact'
+                   ng-disabled="!isNew" ></input>
           </md-input-container>
         </div>        
       </div>
       <div layout="row" layout-sm="column" >
         <md-input-container flex>
           <label>Address</label>
-          <input type="text" ng-model='ticket.customer_info.address' required></input>
+          <input type="text" ng-model='ticket.customer_info.address'
+                 ng-disabled="!isNew" ></input>
         </md-input-container>
         <md-input-container flex>
           <label>Email ID</label>
-          <input type="text"ng-model='ticket.customer_info.email_id'></input>
+          <input type="text" ng-model='ticket.customer_info.email_id'
+                 ng-disabled="!isNew" required></input>
         </md-input-container>
       </div>
       
@@ -73,7 +79,9 @@
       <md-button ng-click="cancel()">
         Cancel
       </md-button>
-      <md-button ng-click="submit()" class="md-primary">
+      <md-button ng-click="submit()"
+                 class="md-primary"
+                 ng-disabled="isSubmit()">
         Submit
       </md-button>
     </div>

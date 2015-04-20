@@ -2,7 +2,7 @@
  *  Controller for dialog to create new ticket.
  */
 var createTicketDialogCtrl = function($scope, $mdDialog,
-    ticket, TicketsApi) {
+    $window, ticket, TicketsApi) {
  
   this.scope_ = $scope;
 
@@ -21,8 +21,8 @@ var createTicketDialogCtrl = function($scope, $mdDialog,
   };
   
   // Handler for form submit.
-  this.scope_.submit = angular.bind(this, this.submit_);
-
+  this.scope_.submit = angular.bind(this, this.submit_, $window);
+  this.scope_.isSubmit = angular.bind(this, this.isSubmit_);
 };
 
 
@@ -33,15 +33,17 @@ createTicketDialogCtrl.NG_NAME = 'createTicketDialogCtrl';
 /**
  * Handler for submit the ticket form.
  */
-createTicketDialogCtrl.prototype.submit_ = function() {
+createTicketDialogCtrl.prototype.submit_ = function($window) {
   if(this.scope_.isNew) {
     
     this.scope_.ticket.status =
         (this.scope_.ticket.assigned_to == null) ? "new" : "open";
 
-    this.ticketsApi_.createTicket(this.scope_.ticket, function(response) {
-      console.log("Ticket successfully created");
-    }, function(response) {
+    this.ticketsApi_.createTicket(this.scope_.ticket,
+      angular.bind(null, function($window, response) {
+        console.log("Ticket successfully created");
+        $window.location.reload();
+    }, $window), function(response) {
       console.log("Ticket creation failed");
     })
   } else {
@@ -54,9 +56,10 @@ createTicketDialogCtrl.prototype.submit_ = function() {
     }
     request["comments"] = this.scope_.ticket.comments;
     this.ticketsApi_.updateTicket(this.scope_.ticket.ticket_no,
-        request, function() {
+        request, angular.bind(null, function($window, response) {
+      $window.location.reload();
       console.log("Ticket successfully updated");
-    }, function() {
+    }, $window), function() {
       console.log("Ticket updation failed");
     });
   }
@@ -84,4 +87,13 @@ createTicketDialogCtrl.prototype.createEmptyTicket = function() {
   return newTicket;
 };
 
-
+/**
+ * Return true if all the required info for ticket is field.
+ */
+createTicketDialogCtrl.prototype.isSubmit_ = function() {
+  if(this.scope_) {
+    var ticket = this.scope_.ticket;
+    return ((ticket.status == "close") || !(ticket.summary && ticket.created_by &&
+        ticket.customer_info.name && ticket.customer_info.email_id));
+  }
+};

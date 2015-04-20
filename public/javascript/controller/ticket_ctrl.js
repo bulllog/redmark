@@ -14,6 +14,7 @@ var ticketCtrl = function($scope, $location, TicketsApi) {
   this.scope_.submitComment = angular.bind(this,
       this.submitComment);
   this.scope_.submit = angular.bind(this, this.submit_);
+  this.scope_.isClose = angular.bind(this, this.isClose_);
   this.loadTicket(ticketId);
 };
 
@@ -90,5 +91,12 @@ ticketCtrl.prototype.setBorderColor = function() {
     "close": "#42bd41"
   };
   this.scope_.borderColor = borderColor[this.scope_.ticket.status];
-  
 }
+
+
+/**
+ * Return true if ticket is closed.
+ */
+ticketCtrl.prototype.isClose_ = function() {
+  return (this.scope_.ticket.status == "close");
+};
