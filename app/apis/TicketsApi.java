@@ -84,12 +84,13 @@ public class TicketsApi extends Controller {
       }
       String status = request.findPath("status").textValue();
       String assigned_to = request.findPath("assigned_to").textValue();
-      JsonNode comments = request.findPath("comments");
-
+      JsonNode comment = request.findPath("comment");
+      Logger.info("****************");
+      Logger.info(comment.toString());
       MongoCollectionTicketsInfo ticketsInfoObject = new MongoCollectionTicketsInfo();
       
       responseMessage = ticketsInfoObject.updateTicket(ticketId, status,
-          assigned_to, comments);
+          assigned_to, comment);
       responseStatus = responseMessage.equals("success") ? "200" : "500";
       return ok(response
           .put("status", responseStatus)

@@ -1,5 +1,8 @@
 <div class="ticket-view">
-  <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="space-around">
+  <md-whiteframe class="md-whiteframe-z1"
+                 layout="column"
+                 layout-align="space-around"
+                 style="border-color:{{borderColor}}">
     <div layout="row" layout-align="center end" ng-show="isDataLoaded">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
@@ -15,59 +18,75 @@
           </div>
         </div>
       </md-subheader>
-      <div class="dialog-content">
-        <!-- Department Info -->
-        <md-input-container>
-          <label>Summary</label>
-          <input type="text" ng-model="ticket.summary" required></input>
-        </md-input-container>
-        <div layout="row" layout-sm="column" >
-          <md-input-container flex>
-            <label>Created By</label>
-            <input type="text" ng-model="ticket.created_by" required></input>
+      <div layout="row" layout-sm="column">
+        <div class="dialog-content" flex="66">
+          <!-- Department Info -->
+          <md-input-container>
+            <label>Summary</label>
+            <input type="text" ng-model="ticket.summary" required></input>
           </md-input-container>
+          <div layout="row" layout-sm="column" >
+            <md-input-container flex>
+              <label>Created By</label>
+              <input type="text" ng-model="ticket.created_by" required></input>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Assign To</label>
+              <input type="text" ng-model="ticket.assigned_to"></input>
+            </md-input-container>
+          </div>
+
+          <!-- Customer Info -->
+          <div class="title">Customer Info</div>
+          <div layout="row" layout-sm="column" >
+            <md-input-container flex>
+              <label>Name</label>
+              <input type="text" ng-model="ticket.customer_info.name" required></input>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Contact</label>
+              <input type="text" ng-model="ticket.customer_info.contact"></input>
+            </md-input-container>
+          </div>        
+          <div layout="row" layout-sm="column" class="ticket-view-body">
+            <md-input-container flex>
+              <label>Address</label>
+              <input type="text" required ng-model="ticket.customer_info.address"></input>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Email ID</label>
+              <input type="text" ng-model="ticket.customer_info.email_id"></input>
+            </md-input-container>
+          </div>
+        </div>
+        
+        <!-- Comments -->
+        <div class="comment-section" flex="33" layout="column">
+          <md-list>
+            <md-subheader class="md-sticky">Comments<md-subheader>
+            <md-list-item layout="row" ng-repeat="comment in ticket.comments">
+              <img ng-src="/assets/images/user.svg" class="md-avatar" alt="{{comment.name}}">
+              <div class="md-list-item-text">
+                <p>{{comment.text}}</p>
+              </div>
+            <md-list-item>
+          </md-list>
           <md-input-container flex>
-            <label>Assign To</label>
-            <input type="text" ng-model="ticket.assigned_to"></input>
+            <label>Comments</label>
+            <textarea ng-model="newComment.text"
+                      ng-keypress="submitComment($event)"
+                      md-maxlength="150"
+                      placeholder="Write and press enter to add comment"></textarea>
           </md-input-container>
         </div>
-
-        <!-- Customer Info -->
-        <div class="title">Customer Info</div>
-        <div layout="row" layout-sm="column" >
-          <md-input-container flex>
-            <label>Name</label>
-            <input type="text" ng-model="ticket.customer_info.name" required></input>
-          </md-input-container>
-          <md-input-container flex>
-            <label>Contact</label>
-            <input type="text" ng-model="ticket.customer_info.contact"></input>
-          </md-input-container>
-        </div>        
       </div>
-      <div layout="row" layout-sm="column" >
-        <md-input-container flex>
-          <label>Address</label>
-          <input type="text" required ng-model="ticket.customer_info.address"></input>
-        </md-input-container>
-        <md-input-container flex>
-          <label>Email ID</label>
-          <input type="text" ng-model="ticket.customer_info.email_id"></input>
-        </md-input-container>
-      </div>
-      
-      <!-- Comments -->
-      <md-input-container flex>
-        <label>Comments</label>
-        <textarea ng-model="ticket.comments.comment" md-maxlength="150"></textarea>
-      </md-input-container>
-    </md-content>
     
-    <div class="md-actions" layout="row" ng-if="ticket != null" >
-      <md-button ng-click="submit('useful')" class="md-primary">
-        Submit
-      </md-button>
-    </div>
+      <div class="md-actions" layout="row" ng-if="ticket != null" >
+        <md-button ng-click="submit()" class="md-primary">
+          Submit
+        </md-button>
+      </div>
+    </md-content>
   </md-whiteframe>
 </div>
 

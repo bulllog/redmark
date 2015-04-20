@@ -52,8 +52,9 @@ md-content ul li {
   padding: 5px 0px;
 }
 
-.nav-item:hover {
-  background: #E8EAF6;  
+.nav-item:hover,
+.nav-item:hover a {
+  background-color: #E8EAF6 !important;  
 }
 
 .nav-item md-icon {
@@ -163,11 +164,20 @@ md-card-content a {
   max-width: 500px;
 }
 
+.category-ticket-container md-progress-circular {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+}
+
 .ticket-view {
   padding: 10px;
 }
 
 .ticket-view md-whiteframe {
+  border-top: solid 5px;
+  border-color: rgb(63,81,181);
+  height: 80vh;
   min-height: 400px;
 }
 
@@ -179,7 +189,28 @@ md-card-content a {
   padding: 15px 25px;
 }
 
+.ticket-view .dialog-content {
+  margin: 5px;
+}
+
 .created-date md-icon {
   color: rgba(171, 121, 121, 0.87);
   margin: -3px 6px;
+}
+
+.comment-section {
+  -webkit-box-shadow: inset 1px 1px 10px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: inset 1px 1px 10px -4px rgba(0,0,0,0.75);
+  box-shadow: inset 1px 1px 10px -4px rgba(0,0,0,0.75);
+  border-radius: 1%;
+}
+
+.comment-section md-input-container {
+  margin: 5px;
+}
+
+.comment-section md-list {
+  margin: 2px;
+  height: 35vh;
+  overflow: auto;
 }

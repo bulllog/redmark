@@ -3,6 +3,7 @@ package dbmodules;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBList;
 import com.mongodb.BulkWriteOperation;
 import com.mongodb.BulkWriteResult;
 import com.mongodb.Cursor;
@@ -144,7 +145,7 @@ public class MongoCollectionTicketsInfo extends MongoDBConnection {
       status = (assigned_to == null) ? "new" : "open";
     }
 
-    // TODO: Keep customer id int the table and modify getTickets to
+    // TODO: Keep customer id in the table and modify getTickets to
     // return the ticket with customer info field.
     DBObject customerInfo = customerObject.createCustomer(
         customer_info.findPath("name").textValue(),
@@ -169,7 +170,7 @@ public class MongoCollectionTicketsInfo extends MongoDBConnection {
    * Upadate ticket information of the given ticket id.
    */
   public String updateTicket(String ticketId, String status,
-      String assigned_to, JsonNode comments) {
+      String assigned_to, JsonNode comment) {
     DBObject ticketToUpdate = this.getTicket(ticketId);
     if (ticketToUpdate == null) {
       return "Ticket not exist";
@@ -181,18 +182,30 @@ public class MongoCollectionTicketsInfo extends MongoDBConnection {
     assigned_to = (assigned_to == null) ?
         (String) ticketToUpdate.get("assigned_to") : assigned_to;
 
-    comments = (comments == null) ?
-        (JsonNode) ticketToUpdate.get("comments") : comments;
-
     if (assigned_to == null && (status.equals("open") || status.equals("close"))) {
       return "Ticket should be assigned.";
     }
-    DBObject updatedInfo = new BasicDBObject("status", status)
-        .append("assigned_to", assigned_to)
-        .append("comments", comments);
+    BasicDBList existingComments = (BasicDBList) ticketToUpdate.get("comments");
     
-    this.ticketsInfoObject.update(ticketToUpdate,
-        new BasicDBObject("$set", updatedInfo));
+    if (comment.size() != 0) {
+      Logger.info("existing");
+      Logger.info(existingComments.toString());
+      BasicDBObject commentToAdd = new BasicDBObject("name", comment.findPath("name").textValue())
+          .append("text", comment.findPath("text").textValue());
+      existingComments.add(commentToAdd);
+      Logger.info(existingComments.toString());
+      ticketToUpdate.put("comments", existingComments);
+    }
+    
+    //BasicDBObject updatedInfo = new BasicDBObject("comments", existingComments)
+        //.append("status", status)
+        //.append("assigned_to", assigned_to);
+    ticketToUpdate.put("status", status);
+    ticketToUpdate.put("assigned_to", assigned_to);
+    this.ticketsInfoObject.update(
+        new BasicDBObject("_id", ticketToUpdate.get("_id")),
+        ticketToUpdate);
+    Logger.info(ticketToUpdate.toString());
     Logger.info("Ticket updated succesfully %s", ticketId);
     return "success";
   }

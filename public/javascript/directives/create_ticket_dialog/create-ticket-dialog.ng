@@ -24,7 +24,7 @@
         
         <!-- Department Info -->
         <md-input-container>
-          <label>Summery</label>
+          <label>Summary</label>
           <input type="text" ng-model='ticket.summary' required></input>
         </md-input-container>
         <div layout="row" layout-sm="column" >
@@ -73,7 +73,7 @@
       <md-button ng-click="cancel()">
         Cancel
       </md-button>
-      <md-button ng-click="submit('useful')" class="md-primary">
+      <md-button ng-click="submit()" class="md-primary">
         Submit
       </md-button>
     </div>
